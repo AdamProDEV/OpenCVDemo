@@ -77,7 +77,7 @@ public class OpenCvMatcher {
         }
         Imgproc.rectangle(img_display, matchLoc, new Point(matchLoc.x + templ.cols(), matchLoc.y + templ.rows()),
                 new Scalar(0, 255, 0, 128), 2, 8, 0);
-        saveImage(img_display, "src/test/resources/images/matcher/result.png");
+        saveImage(img_display, "src/test/resources/images/seleniumMatcher/result.png");
     }
 
     public void saveImage(Mat imageMatrix, String targetPath) {
