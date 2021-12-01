@@ -24,6 +24,7 @@ import org.opencv.imgproc.Imgproc;
 
 /*
 * author https://docs.opencv.org/3.4/de/da9/tutorial_template_matching.html
+* https://www.google.com/search?q=opencv+matchTemplate+java
 */
 public class OpenCvMatcher {
     Boolean use_mask = false;
