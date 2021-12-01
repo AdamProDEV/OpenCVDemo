@@ -30,6 +30,12 @@ public class RealOpenCVTest {
     }
 
     @Test
+    void matchImage(){
+
+
+    }
+
+    @Test
     void compareImagesTest() {
 
         Mat loadedImage1 = loadImage("src/test/resources/images/image.jpg");
@@ -58,7 +64,7 @@ public class RealOpenCVTest {
     void detectFaceTest() {
         OpenCV.loadShared();
 //        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        detectFace("src/test/resources/images/face.jpg", "src/test/resources/images/face2.jpg");
+        detectFace("src/test/resources/images/elhana.jpg", "src/test/resources/images/elhana2.jpg");
     }
 
     void detectFace(String sourceImagePath, String targetImagePath) {
