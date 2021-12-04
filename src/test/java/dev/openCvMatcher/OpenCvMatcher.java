@@ -31,7 +31,6 @@ public class OpenCvMatcher {
     Mat img = new Mat(), templ = new Mat();
     Mat mask = new Mat();
     int match_method = 5;
-    JLabel imgDisplay = new JLabel(), resultDisplay = new JLabel();
 
     public void run(String[] args) {
         if (args.length < 2) {
@@ -67,6 +66,7 @@ public class OpenCvMatcher {
         } else {
             Imgproc.matchTemplate(img, templ, result, match_method);
         }
+
         Core.normalize(result, result, 0, 1, Core.NORM_MINMAX, -1, new Mat());
         Point matchLoc;
         Core.MinMaxLocResult mmr = Core.minMaxLoc(result);

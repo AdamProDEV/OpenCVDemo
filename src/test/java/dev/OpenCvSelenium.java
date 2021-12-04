@@ -37,9 +37,9 @@ public class OpenCvSelenium {
     void matchButton() throws Exception{
 
         String screenshot = "src/test/resources/images/seleniumMatcher/screenshot.png";
-        String button = "src/test/resources/images/alvaa.png";
+        String button = "src/test/resources/images/tool.png";
         webDriver.get("https://www.bankhapoalim.co.il/he");
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
         FileUtils.copyFile(((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE), new File(screenshot));
         new OpenCvMatcher().run(new String[]{screenshot, button});
     }
