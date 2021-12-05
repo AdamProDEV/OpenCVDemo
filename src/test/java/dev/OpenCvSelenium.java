@@ -6,11 +6,14 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.opencv.core.Point;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.interactions.touch.TouchActions;
 
 import java.io.File;
 import java.time.Duration;
@@ -22,7 +25,6 @@ public class OpenCvSelenium {
     @BeforeAll
     static void beforeAll() {
 
-        OpenCV.loadShared();
         System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -34,14 +36,56 @@ public class OpenCvSelenium {
     }
 
     @Test
-    void matchButton() throws Exception{
+    void matchButton() throws Exception {
 
         String screenshot = "src/test/resources/images/seleniumMatcher/screenshot.png";
-        String button = "src/test/resources/images/tool.png";
-        webDriver.get("https://www.bankhapoalim.co.il/he");
-//        Thread.sleep(5000);
+        String button = "src/test/resources/images/password.png";
+//        webDriver.get("https://www.bankhapoalim.co.il/he");
+        webDriver.get("https://www.bankhapoalim.co.il/he/login");
+
         FileUtils.copyFile(((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE), new File(screenshot));
-        new OpenCvMatcher().run(new String[]{screenshot, button});
+
+        Point point = new OpenCvMatcher().match(screenshot, button);
+        System.out.println(point);
+        tapByCoordinate((int) point.x, (int) point.y, webDriver);
+        sendKeysByCoordinate("my username", (int) point.x, (int) point.y, webDriver);
+        Thread.sleep(3000);
+
+        button = "src/test/resources/images/password.png";
+        point = new OpenCvMatcher().match(screenshot, button);
+        System.out.println(point);
+        sendKeysByCoordinate("123456", (int) point.x, (int) point.y, webDriver);
+        Thread.sleep(3000);
+
+        button = "src/test/resources/images/enter.png";
+        point = new OpenCvMatcher().match(screenshot, button);
+        System.out.println(point);
+        tapByCoordinate((int) point.x, (int) point.y, webDriver);
+        Thread.sleep(3000);
+
     }
+
+    private void tapByCoordinate(int x, int y, WebDriver webDriver) {
+        System.out.println(webDriver.manage().window().getSize());
+        System.out.println(x + " : " + y);
+        (new TouchActions(webDriver))
+                .moveByOffset(x, y)
+                .click()
+                .moveByOffset(-x, -y)
+                .build().perform();
+
+    }
+
+    private void sendKeysByCoordinate(String text, int x, int y, WebDriver webDriver) {
+        System.out.println(x + " : " + y);
+        (new TouchActions(webDriver))
+                .moveByOffset(x , y)
+                .click()
+                .sendKeys(text)
+                .moveByOffset(-x, -y)
+                .build().perform();
+    }
+
+
 
 }

@@ -12,7 +12,7 @@ public class OpenCvMatcherTest {
         // load the native OpenCV library
         OpenCV.loadShared();
         // run code
-        new OpenCvMatcher().run(new String[]{"src/test/resources/images/hp.png", "src/test/resources/images/alvaaSmall.png"});
+//        new OpenCvMatcher().run(new String[]{"src/test/resources/images/hp.png", "src/test/resources/images/alvaaSmall.png"});
     }
 
 }
