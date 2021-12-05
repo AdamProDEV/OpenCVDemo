@@ -13,6 +13,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasInputDevices;
+import org.openqa.selenium.interactions.Mouse;
 import org.openqa.selenium.interactions.touch.TouchActions;
 
 import java.io.File;
@@ -39,7 +42,7 @@ public class OpenCvSelenium {
     void matchButton() throws Exception {
 
         String screenshot = "src/test/resources/images/seleniumMatcher/screenshot.png";
-        String button = "src/test/resources/images/password.png";
+        String button = "src/test/resources/images/username.png";
 //        webDriver.get("https://www.bankhapoalim.co.il/he");
         webDriver.get("https://www.bankhapoalim.co.il/he/login");
 
@@ -68,21 +71,29 @@ public class OpenCvSelenium {
     private void tapByCoordinate(int x, int y, WebDriver webDriver) {
         System.out.println(webDriver.manage().window().getSize());
         System.out.println(x + " : " + y);
-        (new TouchActions(webDriver))
-                .moveByOffset(x, y)
-                .click()
-                .moveByOffset(-x, -y)
-                .build().perform();
+//        (new TouchActions(webDriver))
+//                .moveByOffset(x, y)
+//                .click()
+//                .moveByOffset(-x, -y)
+//                .build().perform();
+
+        Actions actions = new Actions(webDriver);
+        actions.moveByOffset(x, y).click().build().perform();
 
     }
 
     private void sendKeysByCoordinate(String text, int x, int y, WebDriver webDriver) {
         System.out.println(x + " : " + y);
-        (new TouchActions(webDriver))
-                .moveByOffset(x , y)
-                .click()
+//        (new TouchActions(webDriver))
+//                .moveByOffset(x , y)
+//                .click()
+//                .sendKeys(text)
+//                .moveByOffset(-x, -y)
+//                .build().perform();
+
+        Actions actions = new Actions(webDriver);
+        actions.moveByOffset(x, y).click()
                 .sendKeys(text)
-                .moveByOffset(-x, -y)
                 .build().perform();
     }
 
